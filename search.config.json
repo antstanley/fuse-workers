@@ -2,14 +2,16 @@
   "inputFile": "./data/zomato.csv",
   "searchFile": "./data/zomato.json",
   "chunks": 4,
+  "results": 10,
   "searchOptions": {
     "threshold": 0.5,
-    "maxPatternLength": 256,
-    "keys": ["nameIdx"]
+    "maxPatternLength": 64,
+    "keys": ["name", "address"]
   },
   "indexes": {
     "nameIdx": {
-      "keys": ["Restaurant Name", "Address"],
+      "compoundKeys": ["Restaurant Name"],
+      "keys": ["nameIdx", "name", "address"],
       "fields": {
         "id": "Restaurant ID",
         "name": "Restaurant Name",

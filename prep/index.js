@@ -18,19 +18,21 @@ const prep = async options => {
           console.log(`Records processed: ${records}`)
           if (options.chunks) {
             for (const index in data) {
-              console.log(`Processing index: ${index}`)
-              const chunkSort = chunkFiles(
-                join(process.cwd(), options.searchFile),
-                data[index],
-                options.chunks,
-                records
-              )
-              if (chunkSort) {
-                console.log(`${index} - Chunks created: ${chunkSort.chunks}`)
-                console.log(`${index} - Chunk Size: ${chunkSort.chunkSize}`)
-                console.log(
-                  `${index} - Total records chunked: ${chunkSort.counter}`
+              if (data.hasOwnProperty(index)) {
+                console.log(`Processing index: ${index}`)
+                const chunkSort = chunkFiles(
+                  join(process.cwd(), options.searchFile),
+                  data[index],
+                  options.chunks,
+                  records
                 )
+                if (chunkSort) {
+                  console.log(`${index} - Chunks created: ${chunkSort.chunks}`)
+                  console.log(`${index} - Chunk Size: ${chunkSort.chunkSize}`)
+                  console.log(
+                    `${index} - Total records chunked: ${chunkSort.counter}`
+                  )
+                }
               }
             }
           }

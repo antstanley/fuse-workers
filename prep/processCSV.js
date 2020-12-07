@@ -10,11 +10,13 @@ const processCSV = async (inputFile, indexes) => {
     const csvJson = await neatCsv(csvFile)
     const indexData = {}
     for (const index in indexes) {
-      indexData[index] = []
-      for (let i = 0; i < csvJson.length; i++) {
-        indexData[index].push(createIndex(index, csvJson[i], indexes[index]))
+      if (indexes.hasOwnProperty(index)) {
+        indexData[index] = []
+        for (let i = 0; i < csvJson.length; i++) {
+          indexData[index].push(createIndex(index, csvJson[i], indexes[index]))
+        }
+        indexData[index] = sortIndex(indexData[index], index)
       }
-      indexData[index] = sortIndex(indexData[index], index)
     }
 
     console.log(`Rows processed: ${csvJson.length}`)

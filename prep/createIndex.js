@@ -8,9 +8,9 @@ const cleanString = str => {
 }
 
 const createIndex = (indexName, data, index) => {
-  const { keys, fields } = index
+  const { compoundKeys, fields } = index
 
-  const compoundIndex = keys
+  const compoundIndex = compoundKeys
     .map(key => {
       return data[key]
     })
@@ -20,7 +20,9 @@ const createIndex = (indexName, data, index) => {
   fieldMap[indexName] = cleanString(compoundIndex)
 
   for (const field in fields) {
-    fieldMap[field] = data[fields[field]]
+    if (fields.hasOwnProperty(field)) {
+      fieldMap[field] = data[fields[field]]
+    }
   }
 
   return fieldMap
